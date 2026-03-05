@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى Yasmeentii🥹❤️</title>
+    <style>
+        body { 
+            background: #2d0b1e; 
+            background-image: radial-gradient(circle at 20% 30%, rgba(233, 69, 96, 0.1) 0%, transparent 20%),
+                              radial-gradient(circle at 80% 70%, rgba(233, 69, 96, 0.1) 0%, transparent 20%);
+            color: white; 
+            font-family: 'Arial', sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+            position: relative;
+        }
+
+        /* 1. Glassmorphism المتطور مع Glow */
+        .card { 
+            background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 25px; 
+            padding: 25px; 
+            width: 95%; 
+            max-width: 450px; 
+            border: 1px solid rgba(233, 69, 96, 0.4); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px; 
+            position: relative; 
+            z-index: 10; /* تأكيد ظهور الكروت فوق القلوب */
+        }
+
+        /* 2. تصليح ظهور العناصر */
+        .reveal { opacity: 1; transform: translateY(0); transition: all 0.8s ease-out; }
+        
+        #music-control {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: rgba(233, 69, 96, 0.8); width: 45px; height: 45px;
+            border-radius: 50%; display: none; align-items: center; justify-content: center;
+            cursor: pointer; border: 2px solid white; 
+        }
+        .music-anim { animation: rotating 3s linear infinite; }
+        @keyframes rotating { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .static-heart { position: fixed; color: #ff8fa3; opacity: 0.15; z-index: 1; pointer-events: none; }
+        .star { position: fixed; background: white; border-radius: 50%; opacity: 0.5; z-index: 1; pointer-events: none; animation: twinkle var(--duration) infinite ease-in-out; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        .floating-heart { position: fixed; color: #e94560; font-size: 20px; pointer-events: none; z-index: 10; animation: floatUp var(--duration) linear forwards; opacity: 0.8; }
+        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+
+        #loader { position: fixed; width: 100%; height: 100%; background: #2d0b1e; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: 0.5s; }
+        .heart-loader { font-size: 60px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+        .screen { display: none; width: 100%; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; position: relative; z-index: 5; }
+        .active { display: flex; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .names-card { background: rgba(233, 69, 96, 0.3); border: 2px solid #e94560; padding: 20px; border-radius: 20px; margin-bottom: 25px; position: relative; }
+        .names-card h1 { font-size: 2.2rem; margin: 0; font-weight: 800; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .names-card p { margin: 5px 0 0; font-size: 1.1rem; font-weight: bold; color: #ff8fa3; }
+        .mini-heart { position: absolute; font-size: 12px; opacity: 0.8; }
+
+        .message-box { background: rgba(233, 69, 96, 0.2); border: 1px solid #e94560; border-radius: 20px; padding: 20px; margin: 40px 0; text-align: right; }
+        .message-box h3 { color: #ff8fa3; margin-top: 0; text-align: center; }
+        .message-text { font-size: 16px; color: #fff; line-height: 1.8; white-space: pre-line; }
+
+        input { padding: 15px; border-radius: 12px; border: 1px solid #e94560; background: rgba(255,255,255,0.1); color: white; text-align: center; width: 80%; font-size: 18px; margin-bottom: 15px; }
+        button { background: #e94560; color: white; border: none; padding: 15px 30px; border-radius: 50px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; margin: 5px; position: relative; z-index: 20; }
+        button:hover { transform: scale(1.05); background: #ff4d6d; }
+
+        .timer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0 10px 0; }
+        .timer-box { background: rgba(255, 143, 163, 0.2); padding: 12px 5px; border-radius: 15px; border: 1px solid #ff8fa3; }
+        .timer-box span { display: block; font-size: 20px; color: #ff8fa3; font-weight: bold; }
+        .timer-label { font-size: 12px; color: #eee; }
+        .timer-note { font-size: 13px; color: #ff8fa3; font-style: italic; margin-top: 10px; opacity: 0.9; }
+
+        .image-story { width: 100%; margin-top: 20px; max-width: 500px; position: relative; z-index: 10; }
+        .image-story img { width: 100%; border-radius: 15px; margin-top: 10px; border: 2px solid #e94560; display: block; box-shadow: 0 10px 20px rgba(0,0,0,0.6); }
+        .image-caption { font-size: 17px; color: #eee; margin: 10px 0 40px 0; font-style: italic; border-bottom: 1px dashed #e94560; padding-bottom: 15px; }
+
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
+        .modal-content { background: #2d0b1e; border-radius: 25px; padding: 30px; width: 85%; max-width: 380px; border: 2px solid #e94560; text-align: center; }
+        .footer-sig { margin-top: 50px; padding: 20px; font-size: 14px; color: #aaa; border-top: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 10; }
+    </style>
+</head>
+<body>
+
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+
+    <div id="loader">
+        <div class="heart-loader">❤️</div>
+        <h2 style="margin-top: 20px;">ثواني ياروحي معلش ❤️😂✨</h2>
+    </div>
+
+    <div style="display:none"><div id="player"></div></div>
+
+    <div id="step1" class="screen active">
+        <div class="card">
+            <img src="https://i.postimg.cc/T10pTg5v/1-(2).jpg" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #e94560; margin-bottom: 20px;">
+            <h2>جاهزة؟ 🤔</h2>
+            <p>!اكتبي تاريخ ميلادي عشان تفتحي المفاجأة</p>
+            <input type="text" id="passInput" placeholder="يوم شهر سنة (بدون مسافات)">
+            <button onclick="checkPass()">افتحي يا ياسمينتي ❤️</button>
+        </div>
+    </div>
+
+    <div id="step2" class="screen" style="justify-content: flex-start; overflow-y: auto;">
+        
+        <div class="card names-card">
+            <span class="mini-heart" style="top:10px; left:10px;">❤️</span>
+            <span class="mini-heart" style="bottom:10px; right:10px;">❤️</span>
+            <h1>Yasmeen & Omar</h1>
+            <p>Together Forever</p>
+        </div>
+
+        <div class="card" style="width: 90%;">
+            <p>أول مرة اتقابلنا ❤️</p>
+            <div style="background: #e94560; padding: 5px 20px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: bold;">2021-12-29</div>
+            <h2>بداية عمري معاكي يا Yasmeentii 🥹❤️</h2>
+            
+            <div class="timer-grid">
+                <div class="timer-box"><span id="tyears">0</span><div class="timer-label">سنة</div></div>
+                <div class="timer-box"><span id="tmonths">0</span><div class="timer-label">شهر</div></div>
+                <div class="timer-box"><span id="tdays">0</span><div class="timer-label">يوم</div></div>
+                <div class="timer-box"><span id="thours">0</span><div class="timer-label">ساعة</div></div>
+                <div class="timer-box"><span id="tmins">0</span><div class="timer-label">دقيقة</div></div>
+                <div class="timer-box"><span id="tsecs">0</span><div class="timer-label">ثانية</div></div>
+            </div>
+            <div class="timer-note">والعداد ده هيفضل يعد طول ما إحنا مع بعض إن شاء الله.. ❤️</div>
+        </div>
+
+        <div class="image-story">
+            <img src="https://i.postimg.cc/rsxNjhHV/1-(5).jpg">
+            <p class="image-caption">عيني مشافتش غيرك ولا هتشوف غيرك في حياتها😍❤️</p>
+
+            <img src="https://i.postimg.cc/kMbs7459/1-(3).jpg">
+            <p class="image-caption">كل لحظه ف عمري بتمنى تكون معاكي🥹❤️</p>
+
+            <img src="https://i.postimg.cc/7YrVhkC3/1-(6).jpg">
+            <p class="image-caption">العمر كلو سوا يياسمينتي🫂❤️</p>
+
+            <img src="https://i.postimg.cc/mD3j4pbr/7.jpg"> <p class="image-caption">ابغى هالعيوون😍</p>
+            <img src="https://i.postimg.cc/Hkf9y1nw/8.jpg"> <p class="image-caption">بطل يابا الحج😍</p>
+            <img src="https://i.postimg.cc/tTz3w153/9.jpg"> <p class="image-caption">شكلك حلو اوي بجد بيه ونفسي اشوفك بيه بجد وان شاء الله هشوفك بيه قريب😍❤️</p>
+            
+            <img src="https://i.postimg.cc/vZM3qsbT/1-(1).jpg">
+            <p class="image-caption">ضحكتك سر سعادتي ف دنيتي🥰❤️</p>
+            
+            <img src="https://i.postimg.cc/LsQD8gfj/1-(4).jpg">
+            <p class="image-caption">والله دوبني جمالك😍😍</p>
+        </div>
+
+        <div class="card message-box">
+            <h3>تعالي هقولك ع كلمه سر 😘️</h3>
+            <div class="message-text">
+                امال اي يبت كل مابتروحي بتحلوي كدا في اي هاا😉
+                احلويتي وبقيتي بلدوزر وربنا بطل ابطال الشرق الاوسط🫦
+                حتة بطااايه ماتيجي اكلك يبت 🤤❤️
+                براحه عليا عشان الزمن شادد علياا يسوناا 😂❤️❤️
+                
+                وكنت عاوز اقولك ان انتي مش مجرد حد ف حياتي انتي حته من قلبي وجودك راحه وامان , بحب دايما اشوفك مبسوطة ومرتاحة
+                بحبك وبحب عيونك اللي سحراني بحب ضحكتك بحب هبلك ونكدك بحب اشوفك واسرح ف ملامحك واتخيلك معايا 
+                انتي اجمل حاجه حصلتلي واغلى من اي كلام اقدر اقولو 
+                بتحبي اقولك يماما وقبل ماتحبي اقولهالك انتي فعلا بتخافي عليا وبتحبيني حب الام لابنها 
+                وانا كمان علفكرا بشوفك بنتي ودلوعة باباها قبل مابشوفك حببتي 
+                بخاف عليكي اوي وبغير عليكي اوي وبحبك اوي 
+                ايوا مطلعه عيني وعين امي واهلي بس مهما حصل مش عارف لي بحس ان انا قسيت عليكي 
+                مش بحب ازعلك بحب اغلس عليكي وارخم عليكي لاكن ازعلك لا 
+                
+                وبس يستي طبعا فيها سنة اعفا من النكد بعد الحاجات الحلوة دي صح ؟
+                وربنا قاعد من 2 لحد الساعه 9 الصبح اهو دلوقت يعني حوالي 7 ساعات متواصله عشان اعملك السايت دا 
+                كدبت عليكي وقولتلك اني نمت بس مكنتش نمت كنت شغال بعملك ف السايت 😂❤️
+            </div>
+        </div>
+
+        <button onclick="showFinalModal()" style="margin: 40px 0 20px 0; width: 80%; background: #fff; color: #e94560;"> لسه مخلصتش دوسي هنا يا حتة من كل حتة❤️😂</button>
+
+        <div class="footer-sig">
+            Designed by <br>
+            <strong style="color: #e94560; font-size: 16px;">Engineer Omar Hamdy</strong>
+        </div>
+    </div>
+
+    <div id="finalModal" class="modal">
+        <div class="modal-content">
+            <div style="font-size: 40px;">😍❤️</div>
+            <h2 style="color: #e94560;">ياسمينتي 😍</h2>
+            <p>ربنا يخليكي ليا ومايحرمنيش منك ابدا يا روح قلبي ويارب العمر كله مع بعض 🥹❤️</p>
+            <button onclick="closeModal()" style="background: #252545; width: 100%; margin-top: 15px;">إغلاق</button>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        const sparkleSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');
+
+        function createStaticElements() {
+            for(let i=0; i<100; i++){
+                let h = document.createElement('div');
+                h.className = 'static-heart';
+                h.innerHTML = '❤️';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.top = Math.random() * 100 + 'vh';
+                h.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                h.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(h);
+            }
+            for(let i=0; i<50; i++){
+                let s = document.createElement('div');
+                s.className = 'star';
+                s.style.width = s.style.height = (Math.random() * 3 + 1) + 'px';
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.top = Math.random() * 100 + 'vh';
+                s.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                document.body.appendChild(s);
+            }
+        }
+
+        function startFloatingHearts() {
+            setInterval(() => {
+                let h = document.createElement('div');
+                h.className = 'floating-heart';
+                h.innerHTML = '❤️';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.bottom = '-5vh';
+                h.style.setProperty('--duration', (Math.random() * 3 + 3) + 's');
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 6000);
+            }, 300);
+        }
+
+        window.onload = () => {
+            createStaticElements();
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 2000);
+        };
+
+        let player;
+        let isMuted = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', width: '0', videoId: '69jK7Z1kisM',
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': '69jK7Z1kisM', 'playsinline': 1, 'controls': 0 },
+                events: { 'onReady': (e) => { e.target.mute(); } }
+            });
+        }
+
+        function toggleMusic() {
+            if(player) {
+                if(isMuted) {
+                    player.unMute();
+                    document.getElementById('music-control').classList.add('music-anim');
+                } else {
+                    player.mute();
+                    document.getElementById('music-control').classList.remove('music-anim');
+                }
+                isMuted = !isMuted;
+            }
+        }
+
+        function checkPass() {
+            if(document.getElementById('passInput').value === '1892004') {
+                sparkleSound.play();
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'flex';
+                document.getElementById('music-control').style.display = 'flex';
+                document.getElementById('music-control').classList.add('music-anim');
+                
+                try {
+                    if(player && typeof player.playVideo === 'function') {
+                        player.unMute();
+                        player.setVolume(100);
+                        player.playVideo();
+                    }
+                } catch(e) { console.log("Music error"); }
+                startTimer();
+                startFloatingHearts();
+            } else { 
+                alert('الباسورد غلط يا كتكوتة! ركزي 😉'); 
+            }
+        }
+
+        function startTimer() {
+            const start = new Date("2021-12-29T00:00:00");
+            const update = () => {
+                const now = new Date();
+                let y = now.getFullYear() - start.getFullYear();
+                let m = now.getMonth() - start.getMonth();
+                let d = now.getDate() - start.getDate();
+                if (d < 0) { m--; d += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+                if (m < 0) { y--; m += 12; }
+                const diff = now - start;
+                document.getElementById('tyears').innerText = y;
+                document.getElementById('tmonths').innerText = m;
+                document.getElementById('tdays').innerText = d;
+                document.getElementById('thours').innerText = Math.floor((diff / 3600000) % 24);
+                document.getElementById('tmins').innerText = Math.floor((diff / 60000) % 60);
+                document.getElementById('tsecs').innerText = Math.floor((diff / 1000) % 60);
+            };
+            update();
+            setInterval(update, 1000);
+        }
+
+        function showFinalModal() { document.getElementById('finalModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('finalModal').style.display = 'none'; }
+    </script>
+</body>
+</html>
